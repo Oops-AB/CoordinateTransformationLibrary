@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct WGS84Position: Position {
+public struct WGS84Position: Position {
 
-    enum WGS84Projection {
+    public enum WGS84Projection {
         case rt90_7_5_gon_v
         case rt90_5_0_gon_v
         case rt90_2_5_gon_v
@@ -18,7 +18,7 @@ struct WGS84Position: Position {
         case rt90_5_0_gon_o
     }
 
-    enum WGS84Format {
+    public enum WGS84Format {
         case degrees
         case degreesMinutes
         case degreesMinutesSeconds
@@ -26,28 +26,28 @@ struct WGS84Position: Position {
 
     struct ParseError: Error {}
 
-    let latitude: Double
-    let longitude: Double
+    public let latitude: Double
+    public let longitude: Double
     let gridFormat = Grid.WGS84
     
-    init (latitude: Double, longitude: Double) {
+    public init (latitude: Double, longitude: Double) {
         self.latitude = latitude
         self.longitude = longitude
     }
 
-    init (wgs84 position: WGS84Position) {
+    public init (wgs84 position: WGS84Position) {
         self.latitude = position.latitude
         self.longitude = position.longitude
     }
 
-    func toWGS84() -> WGS84Position {
+    public func toWGS84() -> WGS84Position {
         return self
     }
 }
 
 extension WGS84Position {
 
-    init (string positionString: String, format: WGS84Format) throws {
+    public init (string positionString: String, format: WGS84Format) throws {
         switch format {
             case .degrees:
                 let latLon = positionString.trimmingCharacters (in: .whitespaces).split (separator: " ")
@@ -245,7 +245,7 @@ extension WGS84Position : CustomStringConvertible {
         return String (format: "%@ %.0fº %.0f' %.5f\"", value >= 0 ? positiveValue : negativeValue, degrees, minutes, (round (seconds * 100000.0) / 100000.0))
     }
 
-    var description: String {
+    public var description: String {
         return "Latitude: \(latitudeToString (format: .degreesMinutesSeconds)),  Longitude: \(longitudeToString (format: .degreesMinutesSeconds))"
     }
 }
