@@ -11,8 +11,6 @@ Source: Arnold Andreasson, 2007. http://mellifica.se/konsult
 Source: Björn Sållarp. 2009. http://blog.sallarp.com
 
 Source: Mathias Åhsberg, 2009. http://github.com/goober/
- 
-License: http://www.apache.org/licenses/LICENSE-2.0
 
 ## Usage
 
