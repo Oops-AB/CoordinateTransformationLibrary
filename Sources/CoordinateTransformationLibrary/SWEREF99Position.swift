@@ -62,6 +62,8 @@ public struct SWEREF99Position: Position {
 
 extension SWEREF99Position: CustomStringConvertible {
     public var description: String {
-        return String (format: "N: %f E: %f Projection: %s", self.latitude, self.longitude, String (describing: projection))
+        return String (describing: projection).withCString { projection in
+            return String (format: "N: %f E: %f Projection: %s", self.latitude, self.longitude, projection)
+        }
     }
 }

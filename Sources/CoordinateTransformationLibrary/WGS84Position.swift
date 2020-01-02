@@ -231,7 +231,9 @@ extension WGS84Position : CustomStringConvertible {
         let degrees = floor (abs (value))
         let minutes = (abs (value) - degrees) * 60.0
 
-        return String (format: "%s %.0fº %.0f'", value >= 0 ? positiveValue : negativeValue, degrees, (floor (minutes * 10000.0) / 10000.0))
+        return (value >= 0 ? positiveValue : negativeValue).withCString { prefix in
+            return String (format: "%s %.0fº %.0f'", prefix, degrees, (floor (minutes * 10000.0) / 10000.0))
+        }
     }
 
     private func convertToDegreesMinutesSeconds (_ value: Double, _ positiveValue: String, _ negativeValue: String) -> String {
@@ -242,7 +244,9 @@ extension WGS84Position : CustomStringConvertible {
         let minutes = floor ((abs (value) - degrees) * 60.0)
         let seconds = (abs (value) - degrees - minutes / 60.0) * 3600.0
 
-        return String (format: "%@ %.0fº %.0f' %.5f\"", value >= 0 ? positiveValue : negativeValue, degrees, minutes, (round (seconds * 100000.0) / 100000.0))
+        return (value >= 0 ? positiveValue : negativeValue).withCString { prefix in
+            return String (format: "%s %.0fº %.0f' %.5f\"", prefix, degrees, minutes, (round (seconds * 100000.0) / 100000.0))
+        }
     }
 
     public var description: String {

@@ -56,6 +56,8 @@ public struct RT90Position: Position {
 extension RT90Position: CustomStringConvertible {
 
     public var description: String {
-        return String (format: "X: %f Y: %f Projection: %s", self.latitude, self.longitude, String (describing: projection))
+        return String (describing: projection).withCString { projection in
+            return String (format: "X: %f Y: %f Projection: %s", self.latitude, self.longitude, projection)
+        }
     }
 }
